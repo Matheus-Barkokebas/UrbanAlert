@@ -1,7 +1,5 @@
 from art import text2art
 
-welcome_art = text2art("UrbanAlert", font='standard')
-logo_art = text2art("Monitore  e  Previna", font='standard')
+urbanAlert = text2art("UrbanAlert", font='standard')
 
-print(welcome_art)
-print(logo_art)
+print(urbanAlert)
