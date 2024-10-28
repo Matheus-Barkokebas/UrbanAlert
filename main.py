@@ -1,5 +1,8 @@
-from art import text2art
+from CRUDusuarios import menu
 
-urbanAlert = text2art("UrbanAlert", font='standard')
+def main():
+    menu()
 
-print(urbanAlert)
+
+if __name__ == "__main__":
+    main()
