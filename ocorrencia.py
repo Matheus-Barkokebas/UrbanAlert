@@ -47,18 +47,38 @@ def consultar_ocorrencia ():
     else:
         print("Esses dados nao existem")
 
+def atualitar_ocorrencia():
+    dados_ocorrencia = carregar_dados()
+
+    ocorrencia = input("Qual ocorrencia você quer atualizar?")
+    ocorrencia_encontrada = False
+
+    for i in dados_ocorrencia:
+        if i["qualOcorrencia"] == ocorrencia:
+            i['qualOcorrencia'] = print(f"Tipo de ocorrencia: {i['qualOcorrencia']}") or i['qualOcorrencia']
+            i['estadoOcorrencia'] = print(f"Qual é o estado que aconteu?: {i['estadoOcorrencia']}") or i['estadoOcorrencia']
+            i['cidadeOcorrencia'] = print(f"Qual é a cidade que aconteceu?: {i['cidadeOcorrencia']}") or i['cidadeOcorrencia']
+            i['bairroOcorrencia'] = print(f"Qual é o bairro que aconteceu?: {i['bairroOconrrencia']}") or i['bairroOcorrencia']
+            i['ruaOcorrencia'] = print(f"Qual é a rua que aconteceu?: {i['ruaOcorrencia']}") or i['ruaOcorrencia']
+            i['horaOcorrencia'] = print(f"Que hora aconteceu?: {i['horaOcorrencia']}") or i['horaOcorrencia']
+            i['detalheOcorrencia'] = print(f"Opsional: De mais detlhes sobre a ocorrencia : {i['detalheOcorrencia']}") or i['detalheOcorrencia']
+
+            if ocorrencia_encontrada:
+                salvar_dados(dados_ocorrencia)
+                print("Ocorrencia atualizado!")
+            
+            else:
+                print("Erro!")
 
 
+def deletar_ocorrencia():
+    dados_ocorrencia = carregar_dados()
 
+    excluir_ocorrencia = print("Qual foi a ocorrencia?")
+    lista_atualizada = [ocorrencia for ocorrencia in dados_ocorrencia if ocorrencia["ocorrencia"] != excluir_ocorrencia]
 
-
-
-
-
-    
-
-    
-
-    
-    
-
+    if len (lista_atualizada) < len (lista_atualizada):
+        salvar_dados (lista_atualizada)
+        print(f"Ocorrencia {excluir_ocorrencia} excluido com sucesso!")
+    else:
+        print(f"Ocorrencia {excluir_ocorrencia} não encintrado")
