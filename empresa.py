@@ -3,7 +3,6 @@ import os
 
 arquivo_empresa = "empresa.json"
 
-
 def carregar_dados():
     if os.path.exists (arquivo_empresa):
         try: 
