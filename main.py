@@ -1,6 +1,7 @@
 from empresa import *
 from ocorrencia import *
 from verificacoes import *
+from CRUDusuarios import *
 import time
 import os
 
