@@ -1,109 +1,117 @@
-# Classe para representar um usuário
-class User:
-    def __init__(self, nome, idade, cpf, email, senha, telefone, endereco, cidade, estado, cep):
-        self.nome = nome
-        self.idade = idade
-        self.cpf = cpf
-        self.email = email
-        self.senha = senha
-        self.telefone = telefone
-        self.endereco = endereco
-        self.cidade = cidade
-        self.estado = estado
-        self.cep = cep
+import json
+import os
 
-    def __str__(self):
-        return (f"Nome: {self.nome}, Idade: {self.idade}, CPF: {self.cpf}, Email: {self.email}, "
-                f"Telefone: {self.telefone}, Endereço: {self.endereco}, Cidade: {self.cidade}, "
-                f"Estado: {self.estado}, CEP: {self.cep}")
+arquivo_pessoa = "pessoa.json"
 
-# CRUD de usuários com uma lista
-class UserCRUD:
-    def __init__(self):
-        self.users = []  # Lista para armazenar usuários
+def carregar_dadosP():
+    if os.path.exists(arquivo_pessoa):
+        try:
+            with open(arquivo_pessoa, "r") as infile:
+                return json.load(infile)
+        except json.JSONDecodeError:
+            print("Erro ao ler o arquivo JSON.")
+            return []
+    return []
 
-    def criar_usuario(self, nome, idade, cpf, email, senha, telefone, endereco, cidade, estado, cep):
-        user = User(nome, idade, cpf, email, senha, telefone, endereco, cidade, estado, cep)
-        self.users.append(user)
-        print("Usuário cadastrado com sucesso!")
+def salvar_dados(dados):
+    with open(arquivo_pessoa, "w") as outfile:
+        json.dump(dados, outfile, indent=4)
 
-    def ler_usuario(self):
-        if not self.users:
-            print("Nenhum usuário cadastrado.")
-        else:
-            for user in self.users:
-                print(user)
+def salvar_pessoaP(nome, idade, cpf, email, senha, telefone, endereco, cidade, estado, cep):
+    dados_pessoa = carregar_dadosP()
+    
+    for pessoa in dados_pessoa:
+        if pessoa["cpf"] == cpf:
+            print(f"Erro: O CPF {cpf} já está cadastrado para outra pessoa.")
+            return  
+    
+    nova_pessoa = {
+        "nome": nome,
+        "idade": idade,
+        "cpf": cpf,
+        "email": email,
+        "senha": senha,
+        "telefone": telefone,
+        "endereco": endereco,
+        "cidade": cidade,
+        "estado": estado,
+        "cep": cep,}
+    
+    dados_pessoa.append(nova_pessoa)
+    salvar_dados(dados_pessoa)
+    print("Pessoa salva com sucesso.")
 
-    def atualizar_usuario(self, cpf, **kwargs):
-        for user in self.users:
-            if user.cpf == cpf:
-                for key, value in kwargs.items():
-                    if value:
-                        setattr(user, key, value)
-                print("Usuário atualizado com sucesso!")
-                return
-        print("Usuário não encontrado.")
-
-    def deletar_usuario(self, cpf, senha):
-        for user in self.users:
-            if user.cpf == cpf and user.senha == senha:
-                self.users.remove(user)
-                print("Usuário deletado com sucesso!")
-                return
-            else:
-                print("CPF ou Senha incorreta(s)")
-        print("Usuário não encontrado.")
-
-
-# Menu para o CRUD de usuários
-def menu():
-    crud = UserCRUD()
-
-    while True:
-        print("\n1. Cadastrar novo usuário")
-        print("2. Listar usuários")
-        print("3. Atualizar usuário")
-        print("4. Deletar usuário")
-        print("5. Sair")
-        
-        opcao = input("Escolha uma opção: ")
-        
-        if opcao == "1":
-            nome = input("Digite o nome: ")
-            idade = input("Digite a idade: ")
-            cpf = input("Digite o CPF: ")
-            email = input("Digite o email: ")
-            senha = input("Digite a senha: ")
-            telefone = input("Digite o telefone: ")
-            endereco = input("Digite o endereço: ")
-            cidade = input("Digite a cidade: ")
-            estado = input("Digite o estado: ")
-            cep = input("Digite o CEP: ")
-            crud.criar_usuario(nome, idade, cpf, email, senha, telefone, endereco, cidade, estado, cep)
-
-        elif opcao == "2":
-            crud.ler_usuario()
-
-        elif opcao == "3":
-            cpf = input("Digite o CPF do usuário a ser atualizado: ")
-            updates = {}
-            fields = ["nome", "idade", "cpf", "email", "senha", "telefone", "endereco", "cidade", "estado", "cep"]
-            for field in fields:
-                value = input(f"Novo {field} (ou pressione Enter para manter): ")
-                updates[field] = value if value else None
-            crud.atualizar_usuario(cpf, **updates)
-
-        elif opcao == "4":
-            cpf = input("Digite o CPF do usuário a ser deletado: ")
-            senha = input("Digite a senha do usuário a ser deletado: ")
-            crud.deletar_usuario(cpf, senha)
-             
-
-        elif opcao == "5":
-            print("Saindo do sistema.")
+def consultar_pessoas():
+    dados_pessoa = carregar_dadosP()
+    
+    if dados_pessoa:
+        for pessoa in dados_pessoa:
+            print(f"\nNome: {pessoa['nome']}")
+            print(f"Idade: {pessoa['idade']}")
+            print(f"CPF: {pessoa['cpf']}")
+            print(f"Email: {pessoa['email']}")
+            print(f"Telefone: {pessoa['telefone']}")
+            print(f"Endereço: {pessoa['endereco']}, {pessoa['cidade']}, {pessoa['estado']} - {pessoa['cep']}")
+    else:
+        print("Nenhuma pessoa encontrada.")
+    
+def atualizar_pessoa():
+    dados_pessoa = carregar_dadosP()
+    
+    cpf_atualizar = input("Digite o CPF da pessoa a ser atualizada: ")
+    pessoa_encontrada = False
+    
+    for pessoa in dados_pessoa:
+        if pessoa["cpf"] == cpf_atualizar:
+            pessoa_encontrada = True
+            print("Atualizando dados (deixe em branco para manter o valor atual):")
+            
+            pessoa['nome'] = input(f"Novo nome [{pessoa['nome']}]: ") or pessoa['nome']
+            pessoa['idade'] = input(f"Nova idade [{pessoa['idade']}]: ") or pessoa['idade']
+            pessoa['email'] = input(f"Novo email [{pessoa['email']}]: ") or pessoa['email']
+            pessoa['senha'] = input(f"Nova senha [{pessoa['senha']}]: ") or pessoa['senha']
+            pessoa['telefone'] = input(f"Novo telefone [{pessoa['telefone']}]: ") or pessoa['telefone']
+            pessoa['endereco'] = input(f"Novo endereço [{pessoa['endereco']}]: ") or pessoa['endereco']
+            pessoa['cidade'] = input(f"Nova cidade [{pessoa['cidade']}]: ") or pessoa['cidade']
+            pessoa['estado'] = input(f"Novo estado [{pessoa['estado']}]: ") or pessoa['estado']
+            pessoa['cep'] = input(f"Novo CEP [{pessoa['cep']}]: ") or pessoa['cep']
             break
+    
+    if pessoa_encontrada:
+        salvar_dados(dados_pessoa)
+        print("Dados atualizados com sucesso.")
+    else:
+        print("Pessoa com esse CPF não foi encontrada.")
 
-        else:
-            print("Opção inválida, tente novamente.")
+def excluir_pessoa():
+    dados_pessoa = carregar_dadosP()
+    
+    cpf_excluir = input("Digite o CPF da pessoa a ser excluída: ")
+    lista_atualizada = [pessoa for pessoa in dados_pessoa if pessoa["cpf"] != cpf_excluir]
+    
+    if len(lista_atualizada) < len(dados_pessoa):
+        salvar_dados(lista_atualizada)
+        print(f"Pessoa com CPF {cpf_excluir} excluída com sucesso.")
+    else:
+        print(f"Pessoa com CPF {cpf_excluir} não encontrada.")
 
-menu()
+def listar_pessoa_por_cpf():
+    dados_pessoa = carregar_dadosP()
+    
+    if not dados_pessoa:
+        print("Nenhuma pessoa cadastrada.")
+        return
+
+    cpf_a_buscar = input("Por questoes de seguranca, digite seu CPF: ")
+    
+    for pessoa in dados_pessoa:
+        if str(pessoa["cpf"]) == cpf_a_buscar:
+            print(f"\nNome: {pessoa['nome']}")
+            print(f"Idade: {pessoa['idade']}")
+            print(f"CPF: {pessoa['cpf']}")
+            print(f"Email: {pessoa['email']}")
+            print(f"Telefone: {pessoa['telefone']}")
+            print(f"Endereço: {pessoa['endereco']}, {pessoa['cidade']}, {pessoa['estado']} - {pessoa['cep']}")
+            return
+    
+    print(f"Pessoa com CPF {cpf_a_buscar} não encontrada.")
