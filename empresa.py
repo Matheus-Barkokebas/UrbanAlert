@@ -3,7 +3,7 @@ import os
 
 arquivo_empresa = "empresa.json"
 
-def carregar_dados():
+def carregar_dados_emp():
     if os.path.exists (arquivo_empresa):
         try: 
             with open (arquivo_empresa , "r") as infile:
@@ -14,13 +14,13 @@ def carregar_dados():
     return []
 
 
-def salvar_dados(dados):
+def salvar_dados_emp(dados):
     with open (arquivo_empresa , "w") as outfile:
         json.dump (dados, outfile, indent=4) 
 
 
 def salvar_empresa (nomeEmpresa , responsavelEmpresa , cnpj , telefone , endereco , cidade , estado , email , senha):
-    dados_empresa = carregar_dados()
+    dados_empresa = carregar_dados_emp()
 
     nova_empresa = {
         "nomeEmpresa" : nomeEmpresa,
@@ -34,12 +34,12 @@ def salvar_empresa (nomeEmpresa , responsavelEmpresa , cnpj , telefone , enderec
         "senha" : senha}
     
     dados_empresa.append (nova_empresa)
-    salvar_dados (dados_empresa)
+    salvar_dados_emp (dados_empresa)
     print ("Empresa salva com sucesso!")
 
 
 def consultar_empresa ():
-    dados_empresa = carregar_dados()
+    dados_empresa = carregar_dados_emp()
 
     if dados_empresa:
         for empresa in dados_empresa:
@@ -58,7 +58,7 @@ def consultar_empresa ():
 
     
 def atualizar_empresa ():
-    dados_empresa = carregar_dados()
+    dados_empresa = carregar_dados_emp()
 
     cnpj_empresa = int(input("Qual o cnpj que deseja atualoizar? "))
     empresa_encontrada = False
@@ -79,7 +79,7 @@ def atualizar_empresa ():
             empresa ['senha'] = input (f"Nova senha[{empresa['senha']}]:") or empresa ['senha']
 
             if empresa_encontrada:
-                salvar_dados (dados_empresa)
+                salvar_dados_emp (dados_empresa)
                 print ("Dados foram atualizados!")
 
             else:
@@ -87,44 +87,14 @@ def atualizar_empresa ():
 
         
 def excluir_empresa ():
-    dados_empresa = carregar_dados ()
+    dados_empresa = carregar_dados_emp ()
     
     cnpj_excluir = input ("Qual CNPJ da empresa?")
-    lista_atualizada = [empresa for empresa in dados_empresa if empresa["cnpj"] != cnpj_excluir]
+    lista_atualizada = [empresa for empresa in dados_empresa if empresa["cnpj"] != cnpj_excluir]   
 
     if len (lista_atualizada) < len (dados_empresa):
-        salvar_dados (lista_atualizada)
+        salvar_dados_emp (lista_atualizada)
         print (f"CNPJ {cnpj_excluir} excluido com sucesso!")
 
     else:
         print (f"CNPJ {cnpj_excluir} nao encontrado")
-
-
-def menu ():
-    print ("1-Cadastrar \n2-Consultar \n3-Atualizar \n4-Deletar")
-    op = int (input("Escolha uma opcao: "))
-    
-    match (op):
-        case 1: 
-            nomeEmpresa = (input("Digite o nome da empresa: "))
-            responsavelEmpresa = (input("Digite o nome do responsavel da empresa: "))
-            cnpj = int(input("Digite o cnpj da empresa: "))
-            telefone = int(input("Digite o telefone da empresa: "))
-            endereco = (input("Digite o endereco da empresa: "))
-            cidade = (input("Digite a cidade da empresa: "))
-            estado = (input("Digite o estado da empresa: "))
-            email = (input("Digite o email da empresa: "))
-            senha = (input("Digite a senha da empresa: "))
-
-            salvar_empresa (nomeEmpresa , responsavelEmpresa , cnpj , telefone , endereco , cidade , estado , email , senha)
-
-        case 2:
-            consultar_empresa()
-        
-        case 3: 
-            atualizar_empresa()
-
-        case 4: 
-            excluir_empresa ()
-
-menu()

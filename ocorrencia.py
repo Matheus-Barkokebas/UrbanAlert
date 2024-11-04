@@ -3,8 +3,8 @@ import os
 
 arquivo_ocorrencia = "ocorrencia.json"
 
-def carregar_dados():
-    if os.path.exists (arquivo_ocorrencia, "r"):
+def carregar_dados_occ():
+    if os.path.exists (arquivo_ocorrencia):
         try:
             with open (arquivo_ocorrencia, "r") as infile:
                 return json.load (infile)
@@ -13,12 +13,12 @@ def carregar_dados():
             return []
     return[] 
 
-def salvar_dados(dados):
+def salvar_dados_occ(dados):
     with open (arquivo_ocorrencia, "w") as outfile:
         json.dump (dados, outfile, indent=4)
 
 def criar_ocorrencia (qualOcorrencia, estadoOcorrencia, cidadeOcorrencia, bairroOcorrencia, ruaOcorrencia, horaOcorrencia, DetalhesOcorrencia, ):
-    dados_ocorrencia = carregar_dados()
+    dados_ocorrencia = carregar_dados_occ()
 
     nova_ocorrencia = {"qualOcorrencia": qualOcorrencia,
                        "estadoOcorrencia": estadoOcorrencia,
@@ -29,11 +29,11 @@ def criar_ocorrencia (qualOcorrencia, estadoOcorrencia, cidadeOcorrencia, bairro
                        "DetalhesOcorrencia": DetalhesOcorrencia}
     
     dados_ocorrencia.append(nova_ocorrencia)
-    salvar_dados (dados_ocorrencia)
+    salvar_dados_occ (dados_ocorrencia)
     print("ocorrencia salva com sucesso.")
 
 def consultar_ocorrencia ():
-    dados_ocorrencia = carregar_dados()
+    dados_ocorrencia = carregar_dados_occ()
 
     if dados_ocorrencia:
         for ocorrencia in dados_ocorrencia:
@@ -48,7 +48,7 @@ def consultar_ocorrencia ():
         print("Esses dados nao existem")
 
 def atualitar_ocorrencia():
-    dados_ocorrencia = carregar_dados()
+    dados_ocorrencia = carregar_dados_occ()
 
     ocorrencia = input("Qual ocorrencia você quer atualizar?")
     ocorrencia_encontrada = False
@@ -64,7 +64,7 @@ def atualitar_ocorrencia():
             i['detalheOcorrencia'] = print(f"Opsional: De mais detlhes sobre a ocorrencia : {i['detalheOcorrencia']}") or i['detalheOcorrencia']
 
             if ocorrencia_encontrada:
-                salvar_dados(dados_ocorrencia)
+                salvar_dados_occ(dados_ocorrencia)
                 print("Ocorrencia atualizado!")
             
             else:
@@ -72,13 +72,13 @@ def atualitar_ocorrencia():
 
 
 def deletar_ocorrencia():
-    dados_ocorrencia = carregar_dados()
+    dados_ocorrencia = carregar_dados_occ()
 
     excluir_ocorrencia = print("Qual foi a ocorrencia?")
     lista_atualizada = [ocorrencia for ocorrencia in dados_ocorrencia if ocorrencia["ocorrencia"] != excluir_ocorrencia]
 
     if len (lista_atualizada) < len (lista_atualizada):
-        salvar_dados (lista_atualizada)
+        salvar_dados_occ (lista_atualizada)
         print(f"Ocorrencia {excluir_ocorrencia} excluido com sucesso!")
     else:
         print(f"Ocorrencia {excluir_ocorrencia} não encintrado")
