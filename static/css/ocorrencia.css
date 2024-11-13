@@ -1,0 +1,70 @@
+.bnt-ocorrencia {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  background-color: #e84545;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+button:hover {
+  background-color: #d73535;
+  border-radius: 20px;
+}
+
+.bnt-ocorrencia span {
+  position: absolute;
+  display: block;
+}
+
+.bnt-ocorrencia:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, white);
+  animation: btn-animation 1s linear infinite;
+}
+
+.bnt-ocorrencia span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, white);
+  animation: btn-animation 1s linear infinite 0.25s;
+}
+
+.bnt-ocorrencia span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(270deg, transparent, white);
+  animation: btn-animation 1s linear infinite 0.5s;
+}
+
+.bnt-ocorrencia:hover span:nth-child(1),
+.bnt-ocorrencia:hover span:nth-child(2),
+.bnt-ocorrencia:hover span:nth-child(3) {
+  animation: none;
+}
+@keyframes btn-animation {
+  0% {
+    left: -70%;
+    right: -50%;
+  }
+  50% {
+    left: 70%;
+    right: 50;
+  }
+  100% {
+    left: -70%;
+    right: -50%;
+  }
+}

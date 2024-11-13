@@ -1,9 +1,10 @@
 import json 
 import os
+from flask import Flask, render_template, redirect, request, session, url_for, flash
 
 arquivo_empresa = "empresa.json"
 
-def carregar_dados_emp():
+def carregar_dados():
     if os.path.exists (arquivo_empresa):
         try: 
             with open (arquivo_empresa , "r") as infile:
@@ -14,13 +15,18 @@ def carregar_dados_emp():
     return []
 
 
-def salvar_dados_emp(dados):
+def salvar_dados(dados):
     with open (arquivo_empresa , "w") as outfile:
         json.dump (dados, outfile, indent=4) 
 
 
-def salvar_empresa (nomeEmpresa , responsavelEmpresa , cnpj , telefone , endereco , cidade , estado , email , senha):
-    dados_empresa = carregar_dados_emp()
+def salvar_empresa(nomeEmpresa , responsavelEmpresa , cnpj , telefone , endereco , cidade , estado , email , senha):
+    dados_empresa = carregar_dados()
+
+    for empresa in dados_empresa:
+        if empresa["cnpj"] == cnpj:
+            flash('CNPJ ja cadastrado')
+            return False
 
     nova_empresa = {
         "nomeEmpresa" : nomeEmpresa,
@@ -34,12 +40,12 @@ def salvar_empresa (nomeEmpresa , responsavelEmpresa , cnpj , telefone , enderec
         "senha" : senha}
     
     dados_empresa.append (nova_empresa)
-    salvar_dados_emp (dados_empresa)
+    salvar_dados (dados_empresa)
     print ("Empresa salva com sucesso!")
 
 
 def consultar_empresa ():
-    dados_empresa = carregar_dados_emp()
+    dados_empresa = carregar_dados()
 
     if dados_empresa:
         for empresa in dados_empresa:
@@ -58,7 +64,7 @@ def consultar_empresa ():
 
     
 def atualizar_empresa ():
-    dados_empresa = carregar_dados_emp()
+    dados_empresa = carregar_dados()
 
     cnpj_empresa = int(input("Qual o cnpj que deseja atualoizar? "))
     empresa_encontrada = False
@@ -79,7 +85,7 @@ def atualizar_empresa ():
             empresa ['senha'] = input (f"Nova senha[{empresa['senha']}]:") or empresa ['senha']
 
             if empresa_encontrada:
-                salvar_dados_emp (dados_empresa)
+                salvar_dados (dados_empresa)
                 print ("Dados foram atualizados!")
 
             else:
@@ -87,14 +93,31 @@ def atualizar_empresa ():
 
         
 def excluir_empresa ():
-    dados_empresa = carregar_dados_emp ()
+    dados_empresa = carregar_dados ()
     
     cnpj_excluir = input ("Qual CNPJ da empresa?")
-    lista_atualizada = [empresa for empresa in dados_empresa if empresa["cnpj"] != cnpj_excluir]   
+    lista_atualizada = [empresa for empresa in dados_empresa if empresa["cnpj"] != cnpj_excluir]
 
     if len (lista_atualizada) < len (dados_empresa):
-        salvar_dados_emp (lista_atualizada)
+        salvar_dados (lista_atualizada)
         print (f"CNPJ {cnpj_excluir} excluido com sucesso!")
 
     else:
         print (f"CNPJ {cnpj_excluir} nao encontrado")
+
+def verificar_empresa(cnpj, senha):
+    dados_empresa = carregar_dados()
+
+    #print(dados_empresa)
+
+    cnpj = cnpj.strip()
+    senha = senha.strip()
+
+    #print(dados_empresa["cnpj"])
+
+    for empresa in dados_empresa:
+        if str(empresa["cnpj"]) == cnpj and str(empresa["senha"]) == senha:
+            return True
+    return False
+
+

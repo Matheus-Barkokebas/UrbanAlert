@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #1e1e2d;
+  color: #fff;
+  font-family: "Roboto", sans-serif;
+}
+
+button:hover {
+  background-color: #d73535;
+  border-radius: 20px;
+}
+
+.navbar {
+  background-color: #1e1e2d;
+  border-bottom: 2px solid #e84545;
+}
+.navbar-toggler {
+  color: white;
+  border-color: white;
+  background-color: white;
+}
+
+.navbar-brand,
+.nav-link {
+  color: #fff !important;
+}
+
+.welcome-section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.welcome-section h1 {
+  font-size: 3rem;
+  color: #e84545;
+  margin-bottom: 20px;
+}
+
+.welcome-section p {
+  font-size: 1.2rem;
+  color: #ddd;
+  max-width: 600px;
+  margin-bottom: 40px;
+}
+
+.btn-primary {
+  background-color: #e84545;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #d73535;
+}
+
+body::-webkit-scrollbar {
+  width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #1e1e2d;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #d73535;
+  border-radius: 20px;
+  border: 3px solid #1e1e2d;
+}

@@ -1,5 +1,6 @@
 import json
 import os
+from flask import Flask, render_template, redirect, request, session, url_for, flash
 
 arquivo_pessoa = "pessoa.json"
 
@@ -18,12 +19,12 @@ def salvar_dados(dados):
         json.dump(dados, outfile, indent=4)
 
 def salvar_pessoaP(nome, idade, cpf, email, senha, telefone, endereco, cidade, estado, cep):
-    dados_pessoa = carregar_dadosP()
+    dados_pessoa = carregar_dadosP()    
     
     for pessoa in dados_pessoa:
         if pessoa["cpf"] == cpf:
-            print(f"Erro: O CPF {cpf} já está cadastrado para outra pessoa.")
-            return  
+            flash('CPF ja cadastrado')
+            return False
     
     nova_pessoa = {
         "nome": nome,
@@ -39,7 +40,7 @@ def salvar_pessoaP(nome, idade, cpf, email, senha, telefone, endereco, cidade, e
     
     dados_pessoa.append(nova_pessoa)
     salvar_dados(dados_pessoa)
-    print("Pessoa salva com sucesso.")
+    return True
 
 def consultar_pessoas():
     dados_pessoa = carregar_dadosP()
@@ -91,7 +92,7 @@ def excluir_pessoa():
     
     if len(lista_atualizada) < len(dados_pessoa):
         salvar_dados(lista_atualizada)
-        print(f"Pessoa com CPF {cpf_excluir} excluída com sucesso.")
+        print(f"Pessoa com CPF {cpf_excluir} excluída com sucesso.")    
     else:
         print(f"Pessoa com CPF {cpf_excluir} não encontrada.")
 
@@ -115,3 +116,14 @@ def listar_pessoa_por_cpf():
             return
     
     print(f"Pessoa com CPF {cpf_a_buscar} não encontrada.")
+
+def verificar_pessoa(cpf, senha):
+    dados_pessoa = carregar_dadosP()
+
+    cpf = cpf.strip()
+    senha = senha.strip()
+
+    for pessoa in dados_pessoa:
+        if str(pessoa["cpf"]) == cpf and str(pessoa["senha"]) == senha:
+            return True
+    return False
