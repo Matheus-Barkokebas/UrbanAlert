@@ -133,24 +133,81 @@
         </div>
       </div>
     </nav>
+    <form action="encontrarEmpresa" method="post" style="margin-top: 10px">
+      <div class="row">
+        <div class="col-12" style="text-align: center">
+          <input
+            style="border-radius: 7px; height: 40px"
+            class="me-2"
+            type="text"
+            id="procurarCnpj"
+            name="procurarCnpj"
+            placeholder="Digite o CPF"
+          />
+          <button class="btn btn-outline-danger" type="submit">Search</button>
+        </div>
+      </div>
+      {% if empresaEncontrado %}
+      <table class="table table-dark" style="margin-top: 10px">
+        <thead>
+          <tr>
+            <th scope="col">nomeEmpresa</th>
+            <th scope="col">responsavelEmpresa</th>
+            <th scope="col">cnpj</th>
+            <th scope="col">telefone</th>
+            <th scope="col">endereco</th>
+            <th scope="col">email</th>
+            <th scope="col">senha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ empresa.nomeEmpresa }}</td>
+            <td>{{ empresa.responsavelEmpresa }}</td>
+            <td>{{ empresa.cnpj }}</td>
+            <td>{{ empresa.telefone }}</td>
+            <td>
+              {{ empresa.endereco }}, {{ empresa.cidade }}, {{ empresa.estado }}
+            </td>
+            <td>{{ empresa.email }}</td>
+            <td>{{ empresa.senha }}</td>
+          </tr>
+        </tbody>
+      </table>
+      {% endif %}
+    </form>
 
     {% if dadosEmpresa %}
-    <ul>
+    <table class="table table-dark" style="margin-top: 10px">
+      <thead>
+        <tr>
+          <th scope="col">nomeEmpresa</th>
+          <th scope="col">responsavelEmpresa</th>
+          <th scope="col">cnpj</th>
+          <th scope="col">telefone</th>
+          <th scope="col">endereco</th>
+          <th scope="col">email</th>
+          <th scope="col">senha</th>
+        </tr>
+      </thead>
       {% for empresa in dadosEmpresa %}
-      <li>
-        <strong>Nome da Empresa:</strong> {{ empresa.nomeEmpresa }}<br />
-        <strong>Responsavel Geral:</strong> {{ empresa.responsavelEmpresa }}.<br />
-        <strong>CNPJ:</strong> {{ empresa.cnpj }}.<br />
-        <strong>Telefone:</strong> {{ empresa.telefone }}.<br />
-        <strong>Endereco:</strong> {{ empresa.estado }}, {{ empresa.cidade }}, {{ empresa.endereco }}.<br />
-        <strong>Email:</strong> {{ empresa.email }}.<br />
-        <strong>Senha:</strong> {{ empresa.senha }}.<br />
-      </li>
-      <hr />
+
+      <tbody>
+        <tr>
+          <td>{{ empresa.nomeEmpresa }}</td>
+          <td>{{ empresa.responsavelEmpresa }}</td>
+          <td>{{ empresa.cnpj }}</td>
+          <td>{{ empresa.telefone }}</td>
+          <td>
+            {{ empresa.endereco }}, {{ empresa.cidade }}, {{ empresa.estado }}
+          </td>
+          <td>{{ empresa.email }}</td>
+          <td>{{ empresa.senha }}</td>
+        </tr>
+      </tbody>
+
       {% endfor %}
-    </ul>
-    {% else %}
-    <p>Nenhuma Usuario encontrado.</p>
+    </table>
     {% endif %}
   </body>
 </html>

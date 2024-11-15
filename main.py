@@ -301,11 +301,42 @@ def listarPessoaAdmin():
         dadosPessoa = json.load(outfile)
     return render_template('visuUsuarioAdm.html', dadosPessoa=dadosPessoa)
 
+
 @app.route('/listarEmpresaAdmin')
 def listarEmpresaAdmin():
     with open(arquivo_empresa, "r") as outfile:
         dadosEmpresa = json.load(outfile)
     return render_template('visuEmpAdm.html', dadosEmpresa=dadosEmpresa)
+
+@app.route('/encontrarUsuario', methods=['POST'])
+def verPerfilUsuario():
+    cpfCnpj = request.form.get('procurarCpf')
+
+    with open(arquivo_pessoa, "r") as infile:
+        usuarios = json.load(infile)
+        usuarioEncontrado = next((u for u in usuarios if u["cpf"] == cpfCnpj), None)
+
+    return render_template('visuUsuarioAdm.html', usuario=usuarioEncontrado, usuarioEncontrado=bool(usuarioEncontrado))
+
+@app.route('/encontrarEmpresa', methods=['POST'])
+def verPerfilEmpresa():
+    cpfCnpj = request.form.get('procurarCnpj')
+
+    with open(arquivo_empresa, "r") as infile:
+        empresa = json.load(infile)
+        empresaEncontrado = next((e for e in empresa if e["cnpj"] == cpfCnpj), None)
+
+    return render_template('visuEmpAdm.html', empresa=empresaEncontrado, empresaEncontrado=bool(empresaEncontrado))
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/sair')
 def sair():
