@@ -14,12 +14,10 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="../static/css/admin.css" />
     <link rel="stylesheet" href="../static/css/siteHome.css" />
-    <link rel="stylesheet" href="../static/css/ocorrencia.css" />
-    <title>cadastrar</title>
+    <title>Document</title>
   </head>
-  <body style="background-color: #1e1e2d">
+  <body>
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
         <form action="voltarAdmin">
@@ -134,146 +132,23 @@
         </div>
       </div>
     </nav>
-    <div class="container">
-      <form action="cadastrarPessoaAdmin" id="cadastrarPessoa" method="post">
-        <div class="row">
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-            <label class="form-label">Nome Completo</label>
-            <input
-              type="text"
-              class="form-control"
-              name="nomeAdmin"
-              id="nomeAdmin"
-              required
-            />
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-            <label class="form-label">Idade</label>
-            <input
-              type="date"
-              class="form-control"
-              name="idadeAdmin"
-              id="idadeAdmin"
-              required
-            />
-          </div>
-        </div>
 
-        <div class="row">
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-            <label class="form-label">Email</label>
-            <input
-              type="email"
-              class="form-control"
-              name="emailAdmin"
-              id="emailAdmin"
-              required
-            />
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-            <label class="form-label">Senha</label>
-            <input
-              type="password"
-              class="form-control"
-              name="senhaAdmin"
-              id="senhaAdmin"
-              required
-            />
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-            <label class="form-label">CPF</label>
-            <input
-              type="number"
-              class="form-control"
-              name="cpfAdmin"
-              id="cpfAdmin"
-              required
-            />
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-            <label class="form-label">Telefone</label>
-            <input
-              type="text"
-              class="form-control"
-              name="telefoneAdmin"
-              id="telefoneAdmin"
-              required
-            />
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-            <label class="form-label">Estado</label>
-            <input
-              type="text"
-              class="form-control"
-              name="estadoAdmin"
-              id="estadoAdmin"
-              required
-            />
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-            <label class="form-label">Cidade</label>
-            <input
-              type="text"
-              class="form-control"
-              name="cidadeAdmin"
-              id="cidadeAdmin"
-              required
-            />
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-            <label class="form-label">Endereco</label>
-            <input
-              type="text"
-              class="form-control"
-              name="enderecoAdmin"
-              id="enderecoAdmin"
-              required
-            />
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6">
-            <label class="form-label">CEP</label>
-            <input
-              type="number"
-              class="form-control"
-              name="cepAdmin"
-              id="cepAdmin"
-              required
-            />
-          </div>
-        </div>
-        <div style="margin-top: 10px" class="col-12">
-          <button
-            class="btn-admin"
-            style="border-radius: 20px"
-            type="submit"
-            id="bnt_cadastrarAdmin"
-          >
-            <span></span><span></span><span></span><span></span>
-            CADASTRAR
-          </button>
-        </div>
-      </form>
-
-      <form action="voltarAdmin">
-        <button
-          class="btn-admin"
-          style="border-radius: 20px"
-          type="submit"
-          id="bnt_voltar"
-        >
-          <span></span><span></span><span></span><span></span>
-          VOLTAR
-        </button>
-      </form>
-    </div>
+    {% if dadosOcorrencia %}
+    <ul>
+      {% for ocorrencia in dadosOcorrencia %}
+      <li>
+        <strong>Nome:</strong> {{ ocorrencia.nomeOcorrencia }}<br />
+        <strong>local:</strong> {{ ocorrencia.estadoOcorrencia }}, {{
+        ocorrencia.cidadeOcorrencia }}, {{ ocorrencia.bairroOcorrencia }}, {{
+        ocorrencia.ruaOcorrencia }}.<br />
+        <strong>Hora:</strong> {{ ocorrencia.horaOcorrencia }}<br />
+        <strong>Detalhes:</strong> {{ ocorrencia.DetalhesOcorrencia }}<br />
+      </li>
+      <hr />
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>Nenhuma ocorrência encontrada.</p>
+    {% endif %}
   </body>
 </html>

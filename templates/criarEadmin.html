@@ -14,10 +14,126 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="../static/css/cadastro.css" />
+    <link rel="stylesheet" href="../static/css/admin.css" />
+    <link rel="stylesheet" href="../static/css/siteHome.css" />
+    <link rel="stylesheet" href="../static/css/ocorrencia.css" />
     <title>Document</title>
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <form action="voltarAdmin">
+          <button style="font-size: 20px" class="nav-link">UrbanAlert</button>
+        </form>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse"
+          id="navbarNavDropdown"
+          style="justify-content: end"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                USUARIOS
+              </a>
+              <ul
+                style="background-color: #1e1e2d"
+                class="dropdown-menu dropdown-menu-end"
+              >
+                <li>
+                  <form action="criarPessoaAdmin">
+                    <button
+                      type="submit"
+                      style="color: white"
+                      class="dropdown-item"
+                    >
+                      CRIAR PESSOA
+                    </button>
+                  </form>
+                </li>
+                <li>
+                  <form action="criarEmpresaAdmin">
+                    <button style="color: white" class="dropdown-item">
+                      CRIAR EMPRESA
+                    </button>
+                  </form>
+                </li>
+                <li>
+                  <form action="listarPessoaAdmin">
+                    <button style="color: white" class="dropdown-item">
+                      LISTAR PESSOA
+                    </button>
+                  </form>
+                </li>
+                <li>
+                  <form action="listarEmpresaAdmin">
+                    <button style="color: white" class="dropdown-item">
+                      LISTAR EMPRESA
+                    </button>
+                  </form>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                OCORRENCIAS
+              </a>
+              <ul
+                style="background-color: #1e1e2d"
+                class="dropdown-menu dropdown-menu-end"
+              >
+                <li>
+                  <form action="ocorrenciaAdmin">
+                    <button
+                      type="submit"
+                      style="color: white"
+                      class="dropdown-item"
+                    >
+                      CRIAR OCORRENCIAS
+                    </button>
+                  </form>
+                </li>
+                <li>
+                  <form action="listarOcorreAdmin">
+                    <button style="color: white" class="dropdown-item">
+                      VISUALIZAR OCORRENCIAS
+                    </button>
+                  </form>
+                </li>
+              </ul>
+            </li>
+            <a
+              href="{{ url_for('sair') }}"
+              class="nav-link"
+              role="button"
+              aria-expanded="false"
+            >
+              SAIR
+            </a>
+          </ul>
+        </div>
+      </div>
+    </nav>
     <div class="container">
       <form action="cadastroEmpresaAdmin" method="post">
         <div class="row">
@@ -123,6 +239,7 @@
         </div>
         <div class="col-12">
           <button
+            class="btn-admin"
             style="border-radius: 20px; margin-top: 10px"
             type="submit"
             id="bnt_cadastrar"
@@ -135,6 +252,7 @@
       <div class="col-12">
         <form action="voltarAdmin">
           <button
+            class="btn-admin"
             style="border-radius: 20px; margin-top: -2px"
             type="submit"
             id="bnt_voltar"

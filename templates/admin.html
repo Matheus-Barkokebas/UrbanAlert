@@ -21,7 +21,7 @@
   <body>
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-        <form action="voltarSite">
+        <form action="voltarAdmin">
           <button style="font-size: 20px" class="nav-link">UrbanAlert</button>
         </form>
         <button
@@ -73,14 +73,18 @@
                   </form>
                 </li>
                 <li>
-                  <button style="color: white" class="dropdown-item">
-                    LISTAR PESSOA
-                  </button>
+                  <form action="listarPessoaAdmin">
+                    <button style="color: white" class="dropdown-item">
+                      LISTAR PESSOA
+                    </button>
+                  </form>
                 </li>
                 <li>
-                  <button style="color: white" class="dropdown-item">
-                    LISTAR EMPRESA
-                  </button>
+                  <form action="listarEmpresaAdmin">
+                    <button style="color: white" class="dropdown-item">
+                      LISTAR EMPRESA
+                    </button>
+                  </form>
                 </li>
               </ul>
             </li>
@@ -98,14 +102,22 @@
                 class="dropdown-menu dropdown-menu-end"
               >
                 <li>
-                  <button style="color: white" class="dropdown-item">
-                    CRIAR OCORRENCIAS
-                  </button>
+                  <form action="ocorrenciaAdmin">
+                    <button
+                      type="submit"
+                      style="color: white"
+                      class="dropdown-item"
+                    >
+                      CRIAR OCORRENCIAS
+                    </button>
+                  </form>
                 </li>
                 <li>
-                  <button style="color: white" class="dropdown-item">
-                    VISUALIZAR OCORRENCIAS
-                  </button>
+                  <form action="listarOcorreAdmin">
+                    <button style="color: white" class="dropdown-item">
+                      VISUALIZAR OCORRENCIAS
+                    </button>
+                  </form>
                 </li>
               </ul>
             </li>

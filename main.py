@@ -285,6 +285,28 @@ def empresaAdmin():
 def voltarAdmin():
     return render_template('admin.html')
 
+@app.route('/ocorrenciaAdmin')
+def ocorrenciaAdmin():
+    return render_template('ocorrenciaAdmin.html')
+
+@app.route('/listarOcorreAdmin')
+def listarOcorreAdmin():
+    with open(arquivo_ocorrencia, "r") as outfile:
+        dadosOcorrencia = json.load(outfile)
+    return render_template('visuOcorrAdmin.html', dadosOcorrencia=dadosOcorrencia)
+
+@app.route('/listarPessoaAdmin')
+def listarPessoaAdmin():
+    with open(arquivo_pessoa, "r") as outfile:
+        dadosPessoa = json.load(outfile)
+    return render_template('visuUsuarioAdm.html', dadosPessoa=dadosPessoa)
+
+@app.route('/listarEmpresaAdmin')
+def listarEmpresaAdmin():
+    with open(arquivo_empresa, "r") as outfile:
+        dadosEmpresa = json.load(outfile)
+    return render_template('visuEmpAdm.html', dadosEmpresa=dadosEmpresa)
+
 @app.route('/sair')
 def sair():
     session.pop('cpf', None)
