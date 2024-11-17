@@ -55,6 +55,7 @@ def atualitar_ocorrencia():
 
     for i in dados_ocorrencia:
         if i["qualOcorrencia"] == ocorrencia:
+            ocorrencia_encontrada = True
             i['qualOcorrencia'] = print(f"Tipo de ocorrencia: {i['qualOcorrencia']}") or i['qualOcorrencia']
             i['estadoOcorrencia'] = print(f"Qual é o estado que aconteu?: {i['estadoOcorrencia']}") or i['estadoOcorrencia']
             i['cidadeOcorrencia'] = print(f"Qual é a cidade que aconteceu?: {i['cidadeOcorrencia']}") or i['cidadeOcorrencia']
