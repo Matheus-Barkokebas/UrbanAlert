@@ -132,22 +132,56 @@
         </div>
       </div>
     </nav>
-    <form action="encontrarUsuario" method="post" style="margin-top: 10px">
-      <div class="row">
-        <div class="col-12" style="text-align: center">
-          <input
-            style="border-radius: 7px; height: 40px;"
-            class="me-2"
-            type="text"
-            id="procurarCpf"
-            name="procurarCpf"
-            placeholder="Digite o CPF"
-          />
-          <button class="btn btn-outline-danger" type="submit">Search</button>
+    <div class="container-fluid">
+      <form action="encontrarUsuario" method="post" style="margin-top: 10px">
+        <div class="row">
+          <div class="col-12" style="text-align: center">
+            <input
+              style="border-radius: 7px; height: 40px"
+              class="me-2"
+              type="text"
+              id="procurarCpf"
+              name="procurarCpf"
+              placeholder="Digite o CPF"
+            />
+            <button class="btn btn-outline-danger" type="submit">Search</button>
+          </div>
         </div>
-      </div>
-      {% if usuarioEncontrado %}
-      <table class="table table-dark" style="margin-top: 10px;">
+        {% if usuarioEncontrado %}
+        <table class="table table-dark" style="margin-top: 10px">
+          <thead>
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">Idade</th>
+              <th scope="col">CPF</th>
+              <th scope="col">Email</th>
+              <th scope="col">Senha</th>
+              <th scope="col">Telefone</th>
+              <th scope="col">Endereço</th>
+              <th scope="col">CEP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ usuario.nome }}</td>
+              <td>{{ usuario.idade }}</td>
+              <td>{{ usuario.cpf }}</td>
+              <td>{{ usuario.email }}</td>
+              <td>{{ usuario.senha }}</td>
+              <td>{{ usuario.telefone }}</td>
+              <td>
+                {{ usuario.endereco }}, {{ usuario.cidade }}, {{ usuario.estado
+                }}
+              </td>
+              <td>{{ usuario.cep }}</td>
+            </tr>
+          </tbody>
+        </table>
+        {% endif %}
+      </form>
+
+      {% if dadosPessoa %}
+      <table class="table table-dark" style="margin-top: 20px">
         <thead>
           <tr>
             <th scope="col">Nome</th>
@@ -160,56 +194,25 @@
             <th scope="col">CEP</th>
           </tr>
         </thead>
+        {% for pessoa in dadosPessoa %}
         <tbody>
           <tr>
-            <td>{{ usuario.nome }}</td>
-            <td>{{ usuario.idade }}</td>
-            <td>{{ usuario.cpf }}</td>
-            <td>{{ usuario.email }}</td>
-            <td>{{ usuario.senha }}</td>
-            <td>{{ usuario.telefone }}</td>
+            <td>{{ pessoa.nome }}</td>
+            <td>{{ pessoa.idade }}</td>
+            <td>{{ pessoa.cpf }}</td>
+            <td>{{ pessoa.email }}</td>
+            <td>{{ pessoa.senha }}</td>
+            <td>{{ pessoa.telefone }}</td>
             <td>
-              {{ usuario.endereco }}, {{ usuario.cidade }}, {{ usuario.estado }}
+              {{ pessoa.endereco }}, {{ pessoa.cidade }}, {{ pessoa.estado }}
             </td>
-            <td>{{ usuario.cep }}</td>
+            <td>{{ pessoa.cep }}</td>
           </tr>
         </tbody>
+
+        {% endfor %}
       </table>
       {% endif %}
-    </form>
-
-    {% if dadosPessoa %}
-    <table class="table table-dark" style="margin-top: 20px">
-      <thead>
-        <tr>
-          <th scope="col">Nome</th>
-          <th scope="col">Idade</th>
-          <th scope="col">CPF</th>
-          <th scope="col">Email</th>
-          <th scope="col">Senha</th>
-          <th scope="col">Telefone</th>
-          <th scope="col">Endereço</th>
-          <th scope="col">CEP</th>
-        </tr>
-      </thead>
-      {% for pessoa in dadosPessoa %}
-      <tbody>
-        <tr>
-          <td>{{ pessoa.nome }}</td>
-          <td>{{ pessoa.idade }}</td>
-          <td>{{ pessoa.cpf }}</td>
-          <td>{{ pessoa.email }}</td>
-          <td>{{ pessoa.senha }}</td>
-          <td>{{ pessoa.telefone }}</td>
-          <td>
-            {{ pessoa.endereco }}, {{ pessoa.cidade }}, {{ pessoa.estado }}
-          </td>
-          <td>{{ pessoa.cep }}</td>
-        </tr>
-      </tbody>
-
-      {% endfor %}
-    </table>
-    {% endif %}
+    </div>
   </body>
 </html>
