@@ -108,12 +108,8 @@ def excluir_empresa ():
 def verificar_empresa(cnpj, senha):
     dados_empresa = carregar_dados()
 
-    #print(dados_empresa)
-
     cnpj = cnpj.strip()
     senha = senha.strip()
-
-    #print(dados_empresa["cnpj"])
 
     for empresa in dados_empresa:
         if str(empresa["cnpj"]) == cnpj and str(empresa["senha"]) == senha:
