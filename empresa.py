@@ -105,6 +105,29 @@ def excluir_empresa ():
     else:
         print (f"CNPJ {cnpj_excluir} nao encontrado")
 
+def listar_pessoa_por_cpf():
+    dados_empresa = carregar_dados()
+    
+    if not dados_empresa:
+        print("Nenhuma Empresa cadastrada.")
+        return
+
+    cnpj_a_buscar = input("Por questoes de seguranca, digite seu CNPJ: ")
+    
+    for empresa in dados_empresa:
+        if str(empresa["cnpj"]) == cnpj_a_buscar:
+            print(f"\nNome da empresa: {empresa['nomeEmpresa']}")
+            print(f"Responsavel da empresa: {empresa['responsavelEmpresa']}")
+            print(f"CNPJ: {empresa['cnpj']}")
+            print(f"Telefone: {empresa['telefone']}")
+            print(f"Endereco: {empresa['endereco']}")
+            print(f"Email: {empresa['email']}")
+            print(f"Senha: {empresa['senha']}")
+            print(f"Endereço: {empresa['endereco']}, {empresa['cidade']}, {empresa['estado']}")
+            return
+    
+    print(f"Empresa com CNPJ {cnpj_a_buscar} não encontrada.")
+
 def verificar_empresa(cnpj, senha):
     dados_empresa = carregar_dados()
 
