@@ -96,7 +96,7 @@ def excluir_pessoa():
     else:
         print(f"Pessoa com CPF {cpf_excluir} não encontrada.")
 
-def listar_empresa_por_cnpj():
+def listar_pesoa_por_cpf():
     dados_pessoa = carregar_dadosP()
     
     if not dados_pessoa:
