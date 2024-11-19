@@ -71,11 +71,25 @@ def atualitar_ocorrencia():
             else:
                 print("Erro!")
 
+def listarOcorrenciaPorCidade():
+    dados_ocorrencia = carregar_dados()
+
+    cidadeOcorrencia = input("Qual a cidade da ocorrencia ?")
+    
+    for ocorrencia in dados_ocorrencia:
+        if str(ocorrencia["cidadeOcorrencia"]) == cidadeOcorrencia:
+            print(f"\nNome da ocorrencia: {ocorrencia['nomeOcorrencia']}")
+            print(f"Endereço: {ocorrencia['estadoOcorrencia']}, {ocorrencia['cidadeOcorrencia']}, {ocorrencia['bairroOcorrencia']}, {ocorrencia['ruaOcorrencia']}")
+            print(f"Horario da Ocorrencia: {ocorrencia['horaOcorrencia']}")
+            print(f"Detalhes da ocorrencia: {ocorrencia['DetalhesOcorrencia']}")
+            return
+    
+    print(f"Nenhuma ocorrencia encontrada nessa cidade: {cidadeOcorrencia}")
 
 def deletar_ocorrencia():
     dados_ocorrencia = carregar_dados()
 
-    excluir_ocorrencia = print("Qual foi a ocorrencia?")
+    excluir_ocorrencia = input("Qual foi a ocorrencia?")
     lista_atualizada = [ocorrencia for ocorrencia in dados_ocorrencia if ocorrencia["nomeOcorrencia"] != excluir_ocorrencia]
 
     if len (lista_atualizada) < len (dados_ocorrencia):
